@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NirmaSGPA Calc | Semester 3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+/* BACKGROUND */
+
+.bg1,.bg2{
+    position:fixed;
+    width:380px;
+    height:380px;
+    border-radius:50%;
+    filter:blur(130px);
+    opacity:0.22;
+    z-index:-1;
+}
+
+.bg1{
+    background:#1d9bf0;
+    top:-120px;
+    left:-100px;
+}
+
+.bg2{
+    background:#ffffff;
+    bottom:-120px;
+    right:-100px;
+}
+
+/* NAVBAR */
+
+nav{
+    width:100%;
+    padding:28px 8%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:1.25rem;
+    font-weight:800;
+    letter-spacing:1px;
+    color:white;
+}
+
+.logo span{
+    color:#1d9bf0;
+}
+
+.semester-badge{
+    padding:8px 16px;
+    border-radius:999px;
+    background:rgba(29,155,240,0.12);
+    border:1px solid rgba(29,155,240,0.25);
+    color:#1d9bf0;
+    font-size:0.9rem;
+    font-weight:600;
+    backdrop-filter:blur(12px);
+}
+
+/* HERO */
+
+.hero{
+    padding:20px 8% 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:4rem;
+    line-height:1.1;
+    margin-bottom:18px;
+    font-weight:800;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#ffffff,#1d9bf0);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:#b5bdd3;
+    max-width:720px;
+    margin:auto;
+    line-height:1.7;
+    font-size:1rem;
+}
+
+/* CONTAINER */
+
+.container{
+    padding:40px 8% 60px;
+}
+
+/* GRID */
+
+.subject-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:26px;
+}
+
+/* GLASS */
+
+.glass{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:24px;
+    box-shadow:0 0 30px rgba(0,0,0,0.35);
+}
+
+/* CARD */
+
+.card{
+    padding:26px;
+    transition:0.35s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(29,155,240,0.25);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.03);
+    top:-80px;
+    right:-80px;
+}
+
+.card h2{
+    font-size:1.25rem;
+    margin-bottom:22px;
+    line-height:1.4;
+}
+
+/* INPUTS */
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    color:#b5bdd3;
+    font-size:0.92rem;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#101528;
+    color:white;
+    font-size:1rem;
+}
+
+.input-group input:focus,
+.input-group select:focus{
+    border:1px solid #1d9bf0;
+}
+
+/* BUTTON */
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(90deg,#ffffff,#1d9bf0);
+    color:#050816;
+    font-weight:800;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+    font-size:0.95rem;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(29,155,240,0.28);
+}
+
+/* RESULT */
+
+.result{
+    margin-top:22px;
+    padding:20px;
+    border-radius:18px;
+    background:rgba(29,155,240,0.07);
+    border:1px solid rgba(29,155,240,0.18);
+    text-align:center;
+}
+
+.result h3{
+    font-size:0.9rem;
+    color:#1d9bf0;
+    margin-bottom:10px;
+}
+
+.result p{
+    font-size:2rem;
+    font-weight:800;
+    word-break:break-word;
+}
+
+.extra{
+    margin-top:8px;
+    color:#ff7b93;
+    font-size:0.95rem;
+}
+
+/* SGPA */
+
+.sgpa-box{
+    margin-top:50px;
+    padding:34px;
+    text-align:center;
+}
+
+.sgpa-title{
+    color:#b5bdd3;
+    margin-bottom:10px;
+    font-size:1rem;
+}
+
+.sgpa{
+    font-size:4rem;
+    font-weight:800;
+    background:linear-gradient(90deg,#ffffff,#1d9bf0);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    nav{
+        padding:24px 6%;
+        gap:12px;
+    }
+
+    .container{
+        padding:30px 6% 60px;
+    }
+
+    .hero{
+        padding:10px 6% 10px;
+    }
+
+    .hero h1{
+        font-size:2.5rem;
+    }
+
+    .hero p{
+        font-size:0.95rem;
+    }
+
+    .subject-grid{
+        grid-template-columns:1fr;
+        gap:22px;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+    .sgpa{
+        font-size:3rem;
+    }
+
+    button{
+        font-size:0.9rem;
+    }
+
+    .semester-badge{
+        font-size:0.82rem;
+        padding:7px 14px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        Nirma<span>SGPA</span> Calc
+    </div>
+
+    <div class="semester-badge">
+        Semester 3
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        CSE, CSE-AIML <br>
+        <span class="gradient">SEE SGPA Predictor</span>
+    </h1>
+
+    <p>
+        Enter your current scores, select your target grade point,
+        and instantly know the minimum Semester End Exam marks required.
+    </p>
+
+</section>
+
+<!-- MAIN -->
+
+<section class="container">
+
+    <div class="subject-grid" id="subjectGrid"></div>
+
+    <div class="sgpa-box glass">
+
+        <div class="sgpa-title">
+            Predicted Target SGPA
+        </div>
+
+        <div class="sgpa" id="sgpa">
+            0.00
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+/* SUBJECTS */
+
+const subjects = [
+
+{
+    name:"Data Structures",
+    type:"with"
+},
+
+{
+    name:"Object Oriented Programming",
+    type:"with"
+},
+
+{
+    name:"Digital Electronics",
+    type:"with"
+},
+
+{
+    name:"Mathematical Foundations",
+    type:"without"
+},
+
+{
+    name:"Economics",
+    type:"without"
+},
+
+{
+    name:"Indian Constitution",
+    type:"without"
+}
+
+];
+
+/* GRADE BOUNDARIES */
+
+const gradeBoundaries = {
+
+    10:91,
+    9:81,
+    8:71,
+    7:61,
+    6:51,
+    5:41
+
+};
+
+const grid =
+document.getElementById("subjectGrid");
+
+/* CREATE CARDS */
+
+subjects.forEach((subject,index)=>{
+
+    let fields = "";
+
+    if(subject.type==="with"){
+
+        fields = `
+
+        <div class="input-group">
+            <label>Sessional Exam (out of 50)</label>
+            <input type="number"
+            id="sessional${index}"
+            min="0"
+            max="50">
+        </div>
+
+        <div class="input-group">
+            <label>Assignments (out of 40)</label>
+            <input type="number"
+            id="assignment${index}"
+            min="0"
+            max="40">
+        </div>
+
+        <div class="input-group">
+            <label>Lab Practicals (out of 100)</label>
+            <input type="number"
+            id="lab${index}"
+            min="0"
+            max="100">
+        </div>
+
+        <div class="input-group">
+            <label>LPW Exam (out of 40)</label>
+            <input type="number"
+            id="lpw${index}"
+            min="0"
+            max="40">
+        </div>
+
+        `;
+
+    }
+
+    else{
+
+        fields = `
+
+        <div class="input-group">
+            <label>Sessional Exam (out of 50)</label>
+            <input type="number"
+            id="sessional${index}"
+            min="0"
+            max="50">
+        </div>
+
+        <div class="input-group">
+            <label>Assignments (out of 50)</label>
+            <input type="number"
+            id="assignment${index}"
+            min="0"
+            max="50">
+        </div>
+
+        `;
+
+    }
+
+    grid.innerHTML += `
+
+    <div class="card glass">
+
+        <h2>${subject.name}</h2>
+
+        ${fields}
+
+        <div class="input-group">
+
+            <label>Target Grade Point</label>
+
+            <select id="grade${index}">
+
+                <option value="0">Select Grade</option>
+
+                <option value="10">10 (O)</option>
+
+                <option value="9">9 (A+)</option>
+
+                <option value="8">8 (A)</option>
+
+                <option value="7">7 (B+)</option>
+
+                <option value="6">6 (B)</option>
+
+                <option value="5">5 (C)</option>
+
+            </select>
+
+        </div>
+
+        <button onclick="calculateCourse(${index})">
+
+            Calculate SEE Required
+
+        </button>
+
+        <div class="result">
+
+            <h3>Required SEE Marks</h3>
+
+            <p id="result${index}">
+                --
+            </p>
+
+            <div class="extra" id="extra${index}">
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+});
+
+/* LIMIT INPUTS */
+
+document.addEventListener("input",(e)=>{
+
+    if(e.target.type==="number"){
+
+        let min =
+        parseFloat(e.target.min);
+
+        let max =
+        parseFloat(e.target.max);
+
+        if(e.target.value > max){
+
+            e.target.value = max;
+
+        }
+
+        if(e.target.value < min){
+
+            e.target.value = min;
+
+        }
+
+    }
+
+});
+
+/* CALCULATE */
+
+function calculateCourse(index){
+
+    const subject =
+    subjects[index];
+
+    const targetGrade =
+    parseInt(
+        document.getElementById(`grade${index}`).value
+    );
+
+    if(targetGrade===0){
+
+        alert("Select target grade point");
+        return;
+
+    }
+
+    const targetMarks =
+    gradeBoundaries[targetGrade];
+
+    let current = 0;
+
+    /* WITHOUT PRACTICAL */
+
+    if(subject.type==="without"){
+
+        const sessional =
+        parseFloat(
+            document.getElementById(`sessional${index}`).value
+        ) || 0;
+
+        const assignment =
+        parseFloat(
+            document.getElementById(`assignment${index}`).value
+        ) || 0;
+
+        current += (sessional/50)*25;
+
+        current += (assignment/50)*25;
+
+    }
+
+    /* WITH PRACTICAL */
+
+    else{
+
+        const sessional =
+        parseFloat(
+            document.getElementById(`sessional${index}`).value
+        ) || 0;
+
+        const assignment =
+        parseFloat(
+            document.getElementById(`assignment${index}`).value
+        ) || 0;
+
+        const lab =
+        parseFloat(
+            document.getElementById(`lab${index}`).value
+        ) || 0;
+
+        const lpw =
+        parseFloat(
+            document.getElementById(`lpw${index}`).value
+        ) || 0;
+
+        current += (sessional/50)*15;
+
+        current += (assignment/40)*10;
+
+        current += (lab/100)*15;
+
+        current += (lpw/40)*10;
+
+    }
+
+    const weightedSEERequired =
+    targetMarks - current;
+
+    const requiredSEE =
+    (weightedSEERequired/50)*100;
+
+    const result =
+    document.getElementById(`result${index}`);
+
+    const extra =
+    document.getElementById(`extra${index}`);
+
+    /* IMPOSSIBLE */
+
+    if(requiredSEE > 100){
+
+        result.innerHTML = "Impossible";
+
+        result.style.color = "#ff4d6d";
+
+        extra.innerHTML =
+        `${requiredSEE.toFixed(1)}/100 required`;
+
+    }
+
+    /* ALREADY SECURED */
+
+    else if(requiredSEE <= 0){
+
+        result.innerHTML = "Already Secured";
+
+        result.style.color = "#57ff9a";
+
+        extra.innerHTML = "";
+
+    }
+
+    /* POSSIBLE */
+
+    else{
+
+        result.innerHTML =
+        `${requiredSEE.toFixed(1)}/100`;
+
+        result.style.color = "#1d9bf0";
+
+        extra.innerHTML = "";
+
+    }
+
+    updateSGPA();
+
+}
+
+/* UPDATE SGPA */
+
+function updateSGPA(){
+
+    let total = 0;
+
+    subjects.forEach((subject,index)=>{
+
+        const grade =
+        parseInt(
+            document.getElementById(`grade${index}`).value
+        ) || 0;
+
+        total += grade;
+
+    });
+
+    const sgpa =
+    total / 6;
+
+    document.getElementById("sgpa").innerHTML =
+    sgpa.toFixed(2);
+
+}
+
+updateSGPA();
+
+</script>
+
+</body>
+</html>
