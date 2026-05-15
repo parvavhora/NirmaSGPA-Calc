@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NirmaSGPA Calc | Civil Semester 3</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <a href="index.html" class="back-button">
+        ← Home
+    </a>
+
+    <div class="logo">
+        Nirma<span>SGPA</span> Calc
+    </div>
+
+    <div class="semester-badge">
+        Semester 3
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        Civil Engineering <br>
+        <span class="gradient">Target SEE Marks</span>
+    </h1>
+
+    <p>
+        Enter your current scores, select your target grade point,
+        and instantly know the minimum marks required.
+    </p>
+
+</section>
+
+<!-- MAIN -->
+
+<section class="container">
+
+    <div class="subject-grid" id="subjectGrid"></div>
+
+    <div class="sgpa-box glass">
+
+        <div class="sgpa-title">
+            Predicted Target SGPA
+        </div>
+
+        <div class="sgpa" id="sgpa">
+            0.00
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    Built for Nirma University Students • Semester 3
+</footer>
+
+<script>
+
+/* SUBJECTS */
+
+const subjects = [
+
+{
+    name:"Mechanics for Solids",
+    type:"with"
+},
+
+{
+    name:"Surveying",
+    type:"with"
+},
+
+{
+    name:"Construction Materials",
+    type:"with"
+},
+
+{
+    name:"Mathematics for Civil Engineers",
+    type:"with"
+},
+
+{
+    name:"Organisational Behaviour",
+    type:"without"
+},
+
+{
+    name:"Civil Engineering Drawing and Building Planning",
+    type:"practical_lpw_only"
+}
+
+];
+
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
